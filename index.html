@@ -154,7 +154,7 @@
       const email = document.getElementById("email").value.trim();
       const fecha = new Date().toLocaleString();
 
-      fetch("https://script.google.com/macros/s/AKfycbzeC9cQI7A07_upw43YaiJQ5i1x8VHV8Xyyf5kHee9Tm4H_4r5cI5Et_5Wh5fFG2ouG/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbxu7R0HjDk8aDzF2bCprwtqBJgfLoN1iy9tW29St_8U0hnSjUTdV5Oe62VddDjeuqOz/exec", {
         method: "POST",
         body: JSON.stringify({ email: email, fecha: fecha }),
         headers: { "Content-Type": "application/json" }
