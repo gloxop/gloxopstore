@@ -2,138 +2,151 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Registro - Amantes FC</title>
+  <title>Mi Tienda</title>
   <link rel="icon" type="image/png" href="img/logo.png">
+
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace; /* máquina de escribir */
       text-align: center;
-      background-color: #0d0d0d;
       color: white;
+      background: linear-gradient(-45deg, #ff007f, #000000, #ff4da6, #1a1a1a);
+      background-size: 400% 400%;
+      animation: moverFondo 10s ease infinite;
     }
 
-    /* Barra superior */
+    @keyframes moverFondo {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Navbar negra */
     .navbar {
-      background-color: #111;
+      width: 100%;
+      background-color: #000000;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
-      justify-content: start;
-      padding: 10px 20px;
-      border-bottom: 3px solid #ff007f;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
 
-    .navbar img {
+    .navbar .logo {
       height: 50px;
     }
 
-    /* Logo principal */
-    .main-logo {
-      margin: 50px auto 20px;
+    /* Banner secundario */
+    .banner-secundario {
+      margin: 20px 0;
     }
 
-    .main-logo img {
-      width: 200px;
+    .banner-secundario img {
+      max-width: 300px;
       height: auto;
     }
 
-    /* Formulario de email */
-    .email-box {
-      background-color: #ffd700;
-      color: black;
-      width: 300px;
-      margin: 30px auto;
-      padding: 20px;
+    /* Sección de email */
+    .email-section {
+      display: flex;
+      justify-content: center;
+      margin: 40px 20px;
+    }
+
+    #emailForm {
+      background-color: #e6c200; /* amarillo oscuro */
+      padding: 15px 20px;
       border-radius: 10px;
       display: flex;
-      flex-direction: column;
+      gap: 10px;
       align-items: center;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
 
-    .email-box input {
-      width: 90%;
+    #emailForm input {
+      border: none;
       padding: 10px;
-      margin-bottom: 10px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      flex: 1;
+    }
+
+    #emailForm button {
+      padding: 10px 20px;
+      background-color: #bfa200; /* botón más oscuro */
+      color: white;
       border: none;
       border-radius: 5px;
-      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
       font-size: 16px;
-    }
-
-    .email-box button {
-      background-color: black;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.2s;
     }
 
-    .email-box button:hover {
-      background-color: #333;
+    #emailForm button:hover {
+      background-color: #a68c00;
     }
 
-    /* Texto explicativo */
-    .texto {
-      font-family: 'Courier New', monospace;
-      margin: 40px auto;
-      max-width: 600px;
-      font-size: 18px;
-      line-height: 1.5;
+    /* Texto descriptivo */
+    .descripcion-pagina {
+      margin: 40px 20px;
+      font-size: 20px;
+      color: #ffffff;
     }
 
   </style>
 </head>
 <body>
 
-  <!-- Barra superior -->
+  <!-- Navbar -->
   <div class="navbar">
-    <img src="img/logo.png" alt="Logo">
+    <img src="img/logo.png" alt="Logo" class="logo">
   </div>
 
-  <!-- Logo grande -->
-  <div class="main-logo">
-    <img src="img/logo2.png" alt="Logo grande">
+  <!-- Banner secundario -->
+  <div class="banner-secundario">
+    <img src="img/banner2.png" alt="Banner Secundario">
   </div>
 
-  <!-- Cuadro de email -->
-  <div class="email-box">
-    <input type="email" id="email" placeholder="Introduce tu email">
-    <button onclick="enviarEmail()">Submit</button>
+  <!-- Sección de email -->
+  <div class="email-section">
+    <form id="emailForm" onsubmit="enviarEmail(event)">
+      <input type="email" id="email" placeholder="Email" required>
+      <button type="submit">Enviar</button>
+    </form>
   </div>
 
-  <!-- Texto explicativo -->
-  <div class="texto">
-    <p>Esta página forma parte del registro privado de Amantes FC ©.</p>
-    <p>Introduce tu correo electrónico para recibir actualizaciones exclusivas.</p>
-    <p>Nos pondremos en contacto contigo directamente a través del email que registres.</p>
+  <!-- Texto descriptivo -->
+  <div class="descripcion-pagina">
+    Introduce tu email para recibir novedades, ofertas y todo lo relacionado con nuestra tienda. No compartimos tus datos con terceros.
   </div>
 
   <script>
-    async function enviarEmail() {
-      const email = document.getElementById('email').value.trim();
-
-      if (!email.includes('@')) {
-        alert("Por favor, introduce un correo electrónico válido.");
+    function enviarEmail(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      if(!email.includes("@")){
+        alert("Por favor, introduce un email válido.");
         return;
       }
 
-      const data = { email: email };
+      const datos = { email: email };
 
-      try {
-        await fetch("TU_URL_DEL_SCRIPT", {  // Reemplaza con la URL del Google Apps Script
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "Content-Type": "application/json" }
-        });
-        alert("✅ Email registrado correctamente.");
-        document.getElementById('email').value = "";
-      } catch (error) {
-        alert("❌ Error al enviar el email. Intenta más tarde.");
-      }
+      fetch("https://script.google.com/macros/s/AKfycbw_kmSE7fnE383KP9RY0_RuGqqJBOdFtVSjT7X-83VsyODr7mm35_9e6B9i-QJsJkI8/exec", {  // <-- Reemplaza con tu Google Apps Script URL
+        method: "POST",
+        body: JSON.stringify(datos),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("✅ Email enviado correctamente");
+        document.getElementById("emailForm").reset();
+      })
+      .catch(error => {
+        alert("❌ Error al enviar el email");
+        console.error(error);
+      });
     }
   </script>
 
