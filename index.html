@@ -123,40 +123,46 @@
   <div class="descripcion-pagina">
     Introduce tu email para recibir ofertas exclusivas, información sobre tallas y nuestro catálogo completo de trajes de lujo disponibles, directamente en tu correo. Nos pondremos en contacto contigo de manera personalizada, asegurando que tengas acceso a lo mejor de nuestra colección y novedades exclusivas.
 
-En GLOXOP™, cada traje es hecho en España con la máxima precisión y atención al detalle, con un estilo contemporáneo que refleja elegancia, sofisticación y exclusividad. Nuestro compromiso es ofrecerte prendas de la más alta calidad, pensadas para quienes valoran la excelencia y el lujo en cada detalle.
 
-Al registrarte, recibirás información directa sobre nuestras nuevas colecciones, promociones especiales y recomendaciones personalizadas. Tu privacidad es nuestra prioridad: no compartimos tu información con terceros y tus datos estarán protegidos bajo los más altos estándares de seguridad.
+    En GLOXOP™, cada traje es hecho en España con la máxima precisión y atención al detalle, con un estilo contemporáneo que refleja elegancia, sofisticación y exclusividad. Nuestro compromiso es ofrecerte prendas de la más alta calidad, pensadas para quienes valoran la excelencia y el lujo en cada detalle.
 
-Únete a la experiencia GLOXOP™, donde el lujo moderno se encuentran para ofrecerte trajes que trascienden la moda y definen un estilo de vida exclusivo.
+
+    Al registrarte, recibirás información directa sobre nuestras nuevas colecciones, promociones especiales y recomendaciones personalizadas. Tu privacidad es nuestra prioridad: no compartimos tu información con terceros y tus datos estarán protegidos bajo los más altos estándares de seguridad.
+
+
+    Únete a la experiencia GLOXOP™, donde el lujo moderno se encuentran para ofrecerte trajes que trascienden la moda y definen un estilo de vida exclusivo.
   </div>
 
   <script>
-    function enviarEmail(event) {
-      event.preventDefault();
-      const email = document.getElementById("email").value.trim();
+   function enviarEmail(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  
+  if(!email.includes("@")) {
+    alert("Por favor, introduce un email válido.");
+    return;
+  }
 
-      if(!email.includes("@")){
-        alert("Por favor, introduce un email válido.");
-        return;
-      }
-
-      const datos = { email: email };
-
-      fetch("https://script.google.com/macros/s/AKfycbyvyWt7azysNFhfhKBEtnq8p9yNrmwm60ts-HoUWyQB33tiroC6xkLarH559q_d8TVl/exec", {
-        method: "POST",
-        body: JSON.stringify(datos),
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert("✅ Email enviado correctamente");
-        document.getElementById("emailForm").reset();
-      })
-      .catch(error => {
-        alert("❌ Error al enviar el email");
-        console.error(error);
-      });
+  fetch("TU_URL_DEL_SCRIPT_AQUI", { // <- reemplaza con la URL de tu Apps Script
+    method: "POST",
+    body: JSON.stringify({ email: email }),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.status === "success") {
+      alert("✅ Email enviado correctamente");
+      document.getElementById("emailForm").reset();
+    } else {
+      alert("❌ Error: " + data.message);
     }
+  })
+  .catch(err => {
+    alert("❌ Error al enviar el email");
+    console.error(err);
+  });
+}
+
   </script>
 
 </body>
