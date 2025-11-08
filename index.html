@@ -15,6 +15,22 @@
       background: linear-gradient(-45deg, #000000);
       background-size: 400% 400%;
       animation: moverFondo 10s ease infinite;
+
+      <div id="mensaje" style="
+    display:none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #e6c200;
+    padding: 15px 30px;
+    border-radius: 10px;
+    color: black;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    z-index: 9999;">
+</div>
+
     }
 
     @keyframes moverFondo {
@@ -136,14 +152,9 @@
   <script>
    function enviarEmail(event) {
   event.preventDefault();
-  const email = document.getElementById("email").value.trim();
-  
-  if(!email.includes("@")) {
-    alert("Por favor, introduce un email válido.");
-    return;
-  }
+  const email = document.getElementById("email").value; // Guardamos todo lo que escriban
 
-  fetch("https://script.google.com/macros/s/AKfycbzeC9cQI7A07_upw43YaiJQ5i1x8VHV8Xyyf5kHee9Tm4H_4r5cI5Et_5Wh5fFG2ouG/exec", { // <- reemplaza con la URL de tu Apps Script
+  fetch("TU_URL_DEL_SCRIPT_AQUI", { // <- reemplaza con la URL de tu Apps Script
     method: "POST",
     body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" }
@@ -151,17 +162,26 @@
   .then(res => res.json())
   .then(data => {
     if(data.status === "success") {
-      alert("✅ Email enviado correctamente");
+      mostrarMensaje("✅ Email registrado correctamente");
       document.getElementById("emailForm").reset();
     } else {
-      alert("❌ Error: " + data.message);
+      mostrarMensaje("❌ Error: " + data.message);
     }
   })
   .catch(err => {
-    alert("❌ Error al enviar el email");
+    mostrarMensaje("❌ Error al enviar el email");
     console.error(err);
   });
 }
+
+// Mensaje dentro de la página, no alert()
+function mostrarMensaje(texto) {
+  const msg = document.getElementById("mensaje");
+  msg.innerText = texto;
+  msg.style.display = "block";
+  setTimeout(() => { msg.style.display = "none"; }, 3000);
+}
+
 
   </script>
 
