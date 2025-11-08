@@ -2,9 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>GLOXOP ™ | Official Shop Luxury Menswear.
-
-</title>
+  <title>GLOXOP ™ | Official Shop Luxury Menswear</title>
   <link rel="icon" type="image/png" href="1000015862.png">
 
   <style>
@@ -25,18 +23,20 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Navbar negra */
+    /* Navbar negra con logo centrado */
     .navbar {
       width: 100%;
       background-color: #000000;
-      padding: 15px 20px;
+      padding: 15px 0;
       display: flex;
+      justify-content: center;
       align-items: center;
       box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
 
     .navbar .logo {
-      height: 50px;
+      height: 60px;
+      object-fit: contain;
     }
 
     /* Banner secundario */
@@ -88,12 +88,8 @@
 
     #emailForm button:hover {
       background-color: #EEEEEE;
+      color: black;
     }
-
-    <!-- Barra superior -->
-<div class="navbar">
-  <img src="img/logo.png" alt="Logo" class="logo">
-</div>
 
     /* Texto descriptivo */
     .descripcion-pagina {
@@ -107,18 +103,18 @@
 
   <!-- Navbar -->
   <div class="navbar">
-    <img src="1000015825.png" alt="Logo" class="logo">
+    <img src="img/logo.png" alt="Logo" class="logo">
   </div>
 
   <!-- Banner secundario -->
   <div class="banner-secundario">
-    <img src="1000015862.png" alt="Banner Secundario">
+    <img src="img/banner2.png" alt="Banner Secundario">
   </div>
 
   <!-- Sección de email -->
   <div class="email-section">
     <form id="emailForm" onsubmit="enviarEmail(event)">
-      <input type="text" id="email" placeholder="Email" required>
+      <input type="email" id="email" placeholder="Email" required>
       <button type="submit">SUBMIT</button>
     </form>
   </div>
@@ -132,15 +128,15 @@
     function enviarEmail(event) {
       event.preventDefault();
       const email = document.getElementById("email").value.trim();
-      
-      if(!email.includes("@"){
+
+      if(!email.includes("@")){
         alert("Por favor, introduce un email válido.");
         return;
       }
 
       const datos = { email: email };
 
-      fetch("https://script.google.com/macros/s/AKfycbw_kmSE7fnE383KP9RY0_RuGqqJBOdFtVSjT7X-83VsyODr7mm35_9e6B9i-QJsJkI8/exec", { // <- Reemplaza con tu URL del Apps Script
+      fetch("https://script.google.com/macros/s/AKfycbw_kmSE7fnE383KP9RY0_RuGqqJBOdFtVSjT7X-83VsyODr7mm35_9e6B9i-QJsJkI8/exec", {
         method: "POST",
         body: JSON.stringify(datos),
         headers: { "Content-Type": "application/json" }
@@ -159,5 +155,4 @@
 
 </body>
 </html>
-
 
